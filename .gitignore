@@ -7,7 +7,7 @@ Thumbs.db
 **/tmp/
 
 ## Angular (Frontend)
-**/node_modules/
+**/node_modules
 **/bower_components/
 **/dist/
 **/.angular/
