@@ -1,14 +1,30 @@
 <!-- Todo: refactorizar estilos -->
 
-<header class="bg-text-secondary">
+<header class="bg-text-secondary pt-3 px-3">
     <h1>Bienvenido al chat</h1>
 </header>
 
 <main>
     @if (!conectado()) 
     {
-        <section class="bg-light p-2">
-            <button class="btn btn-success" type="button" (click)="conectarChat()">Conectar</button>
+        <section class="bg-light p-3">
+            <div class="input-group">
+                <input type="text" 
+                        name="usuario" 
+                        id="usuario" 
+                        [(ngModel)]="mensaje.usuario"
+                        class="form-control" 
+                        placeholder="Ingresa tu nombre de usuario..." 
+                        aria-describedby="btn-conectar">
+                        
+                <button class="btn btn-success" 
+                        type="button" 
+                        id="btn-conectar"
+                        [disabled]="!mensaje.usuario"
+                        (click)="conectarChat()">
+                    Conectarme
+                </button>
+            </div>
         </section>
     }   
     @else
@@ -21,9 +37,19 @@
             <ul class="list-group">
                 @for (mensaje of mensajes(); track $index) 
                 {
-                    <li class="list-group-item">
-                        {{mensaje.fecha | date: 'medium'}} -> {{mensaje.mensaje}}
-                    </li>
+
+                    @if (mensaje.tipo == 'MESSAGE')
+                    {
+                        <li class="list-group-item">
+                            {{mensaje.fecha | date: 'short'}} | <strong>@{{mensaje.usuario}}:</strong> {{mensaje.mensaje}}
+                        </li>
+                    }
+                    @else
+                    {
+                        <li class="list-group-item bg-info">
+                            {{mensaje.fecha | date: 'short'}} | {{mensaje.mensaje}}
+                        </li>
+                    }
                 }
                 @empty 
                 {
@@ -37,14 +63,16 @@
                 <div class="input-group">
                     <button class="btn btn-outline-primary" 
                             type="submit" 
-                            id="btn-enviar">Enviar mensaje
+                            id="btn-enviar">
+                        Enviar mensaje
                     </button>
                     <input type="text" 
                            name="texto" 
                            id="texto" 
                            [(ngModel)]="mensaje.mensaje" 
                            class="form-control" 
-                           placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
+                           placeholder="Escribe tu mensaje..." 
+                           aria-describedby="btn-enviar">
                 </div>
             </form>
         </section>

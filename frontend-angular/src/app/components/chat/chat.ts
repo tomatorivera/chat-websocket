@@ -47,6 +47,12 @@ export class Chat {
         const nuevoMensaje = JSON.parse(evento.body);
         this.mensajes.update(listaActual => [...listaActual, nuevoMensaje]);
       })
+
+      this.mensaje.tipo = 'NEW_USER';
+      this.cliente.publish({
+        destination: '/app/mensajes',
+        body: JSON.stringify(this.mensaje)
+      })
     }
 
     this.cliente.onDisconnect = (frame) => {
@@ -69,6 +75,7 @@ export class Chat {
   }
 
   alEnviarMensaje(): void {
+    this.mensaje.tipo = 'MESSAGE';
     this.cliente.publish({
       destination: '/app/mensajes',
       body: JSON.stringify(this.mensaje)
