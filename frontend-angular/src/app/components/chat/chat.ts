@@ -2,10 +2,10 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as Stomp from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { Mensaje } from '../../models/mensaje';
 
 @Component({
   selector: 'app-chat',
-  standalone: true,
   imports: [FormsModule],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
@@ -14,6 +14,11 @@ export class Chat {
 
   cliente!: Stomp.Client;
   conectado = signal<boolean>(false);
+
+  // La lista de mensajes almacena todos los mensajes del chat
+  // El mensaje (en singular) lo mapeo al formulario
+  mensajes: Mensaje[] = [];
+  mensaje: Mensaje = new Mensaje();
 
   ngOnInit(): void {
     // Configuro el cliente bajo el protocolo STOMP
@@ -33,11 +38,19 @@ export class Chat {
     this.cliente.onConnect = (frame) => {
       this.conectado.set(true);
       console.log(`Conectado: ${this.cliente.connected} : ${frame}`);
+
+      this.cliente.subscribe('/chat/mensajes', evento => {
+        // Aquí proceso todos los mensajes que van llegando
+        console.log(evento.body);
+      })
     }
 
     this.cliente.onDisconnect = (frame) => {
       this.conectado.set(false);
       console.log(`Desconectado: ${!this.cliente.connected} : ${frame}`);
+
+      this.mensaje = new Mensaje();
+      this.mensajes = [];
     }
 
     // this.conectarChat();
@@ -49,6 +62,15 @@ export class Chat {
 
   desconectarChat(): void {
     this.cliente.deactivate();
+  }
+
+  alEnviarMensaje(): void {
+    this.cliente.publish({
+      destination: '/app/mensajes',
+      body: JSON.stringify(this.mensaje)
+    });
+
+    this.mensaje.mensaje = '';
   }
 
 }

@@ -21,10 +21,18 @@
         </section>
 
         <section class="bg-light p-3">
-            <form>
+            <form (ngSubmit)="alEnviarMensaje()">
                 <div class="input-group">
-                    <button class="btn btn-outline-primary" type="button" id="btn-enviar">Enviar mensaje</button>
-                    <input type="text" class="form-control" placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
+                    <button class="btn btn-outline-primary" 
+                            type="submit" 
+                            id="btn-enviar">Enviar mensaje
+                    </button>
+                    <input type="text" 
+                           name="texto" 
+                           id="texto" 
+                           [(ngModel)]="mensaje.mensaje" 
+                           class="form-control" 
+                           placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
                 </div>
             </form>
         </section>

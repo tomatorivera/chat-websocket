@@ -1,4 +1,4 @@
 export class Mensaje {
-    texto: string = '';
+    mensaje: string = '';
     fecha!: Date;
 }
