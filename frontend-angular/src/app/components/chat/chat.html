@@ -70,11 +70,13 @@
                            name="texto" 
                            id="texto" 
                            [(ngModel)]="mensaje.mensaje" 
+                           (keyup)="alEscribir()"
                            class="form-control" 
                            placeholder="Escribe tu mensaje..." 
                            aria-describedby="btn-enviar">
                 </div>
             </form>
+            <p>{{ escribiendo() }}</p>
         </section>
     }
 </main>

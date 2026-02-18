@@ -15,6 +15,7 @@ export class Chat {
 
   cliente!: Stomp.Client;
   conectado = signal<boolean>(false);
+  escribiendo = signal<string>('');
 
   // La lista de mensajes almacena todos los mensajes del chat
   // El mensaje (en singular) lo mapeo al formulario
@@ -46,13 +47,21 @@ export class Chat {
 
         const nuevoMensaje = JSON.parse(evento.body);
         this.mensajes.update(listaActual => [...listaActual, nuevoMensaje]);
+      });
+
+      this.cliente.subscribe('/chat/escribiendo', evento => {
+        if (evento.body != this.mensaje.usuario)
+        {
+          this.escribiendo.set(evento.body + ' está escribiendo...');
+          setTimeout(() => this.escribiendo.set(''), 3000);
+        }
       })
 
       this.mensaje.tipo = 'NEW_USER';
       this.cliente.publish({
         destination: '/app/mensajes',
         body: JSON.stringify(this.mensaje)
-      })
+      });
     }
 
     this.cliente.onDisconnect = (frame) => {
@@ -82,6 +91,13 @@ export class Chat {
     });
 
     this.mensaje.mensaje = '';
+    this.escribiendo.set('');
   }
 
+  alEscribir(): void {
+    this.cliente.publish({
+      destination: '/app/escribiendo',
+      body: this.mensaje.usuario
+    });
+  }
 }
