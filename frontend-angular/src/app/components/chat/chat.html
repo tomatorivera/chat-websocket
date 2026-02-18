@@ -1,1 +1,32 @@
-<p>chat works!</p>
+<!-- Todo: refactorizar estilos -->
+
+<header class="bg-text-secondary">
+    <h1>Bienvenido al chat</h1>
+</header>
+
+<main>
+    @if (!conectado()) 
+    {
+        <section class="bg-light p-2">
+            <button class="btn btn-success" type="button" (click)="conectarChat()">Conectar</button>
+        </section>
+    }   
+    @else
+    {
+        <section class="bg-light p-2">
+            <button class="btn btn-warning" type="button" (click)="desconectarChat()">Desconectar</button>  
+        </section> 
+
+        <section style="overflow-y: scroll; width: 100vw; height: 50vh; margin: 0 auto;">
+        </section>
+
+        <section class="bg-light p-3">
+            <form>
+                <div class="input-group">
+                    <button class="btn btn-outline-primary" type="button" id="btn-enviar">Enviar mensaje</button>
+                    <input type="text" class="form-control" placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
+                </div>
+            </form>
+        </section>
+    }
+</main>
