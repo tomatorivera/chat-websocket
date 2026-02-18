@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as Stomp from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
@@ -6,7 +7,7 @@ import { Mensaje } from '../../models/mensaje';
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule],
+  imports: [FormsModule, DatePipe ],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })
@@ -17,7 +18,7 @@ export class Chat {
 
   // La lista de mensajes almacena todos los mensajes del chat
   // El mensaje (en singular) lo mapeo al formulario
-  mensajes: Mensaje[] = [];
+  mensajes = signal<Mensaje[]>([]);
   mensaje: Mensaje = new Mensaje();
 
   ngOnInit(): void {
@@ -42,6 +43,9 @@ export class Chat {
       this.cliente.subscribe('/chat/mensajes', evento => {
         // Aquí proceso todos los mensajes que van llegando
         console.log(evento.body);
+
+        const nuevoMensaje = JSON.parse(evento.body);
+        this.mensajes.update(listaActual => [...listaActual, nuevoMensaje]);
       })
     }
 
@@ -50,7 +54,7 @@ export class Chat {
       console.log(`Desconectado: ${!this.cliente.connected} : ${frame}`);
 
       this.mensaje = new Mensaje();
-      this.mensajes = [];
+      this.mensajes.set([]);
     }
 
     // this.conectarChat();

@@ -18,6 +18,18 @@
         </section> 
 
         <section style="overflow-y: scroll; width: 100vw; height: 50vh; margin: 0 auto;">
+            <ul class="list-group">
+                @for (mensaje of mensajes(); track $index) 
+                {
+                    <li class="list-group-item">
+                        {{mensaje.fecha | date: 'medium'}} -> {{mensaje.mensaje}}
+                    </li>
+                }
+                @empty 
+                {
+                    <li class="list-group-item text-secondary">Sé el primero en enviar un mensaje!</li>
+                }
+            </ul>
         </section>
 
         <section class="bg-light p-3">
