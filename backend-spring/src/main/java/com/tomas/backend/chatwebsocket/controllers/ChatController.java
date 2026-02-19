@@ -14,11 +14,12 @@ import java.util.Date;
 @Controller
 public class ChatController {
 
-    private Logger log = LoggerFactory.getLogger(ChatController.class);
+    private final Logger log;
     private final IMensajeService mensajeService;
     private final SimpMessagingTemplate webSocket;
 
     public ChatController(IMensajeService mensajeService, SimpMessagingTemplate webSocket) {
+        this.log = LoggerFactory.getLogger(ChatController.class);
         this.mensajeService = mensajeService;
         this.webSocket = webSocket;
     }

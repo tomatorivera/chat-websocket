@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MensajeServiceImpl implements IMensajeService {
+public class MensajeServiceMemoryImpl implements IMensajeService {
 
     // To-Do: Implementar persistencia con MongoDb
     private final List<Mensaje> mensajes;
 
-    public MensajeServiceImpl() {
+    public MensajeServiceMemoryImpl() {
         mensajes = new ArrayList<>();
     }
 

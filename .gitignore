@@ -44,6 +44,7 @@ Thumbs.db
 **/buildNumber.properties
 **/.mvn/timing.properties
 **/.mvn/wrapper/maven-wrapper.jar
+**/*.env
 
 ## IDEs: Visual Studio Code
 **/.vscode/*
