@@ -16,6 +16,13 @@ export class Chat {
   cliente!: Stomp.Client;
   conectado = signal<boolean>(false);
   escribiendo = signal<string>('');
+  
+  idCliente!: string;
+
+  constructor() {
+    // To-Do: reimplementación con MongoDb
+    this.idCliente = 'id-' + new Date().getTime();
+  }
 
   // La lista de mensajes almacena todos los mensajes del chat
   // El mensaje (en singular) lo mapeo al formulario
@@ -49,6 +56,7 @@ export class Chat {
         this.mensajes.update(listaActual => [...listaActual, nuevoMensaje]);
       });
 
+      // Notificaciones de usuarios escribiendo
       this.cliente.subscribe('/chat/escribiendo', evento => {
         if (evento.body != this.mensaje.usuario)
         {
@@ -57,6 +65,16 @@ export class Chat {
         }
       })
 
+      // Historial de mensajes
+      this.cliente.subscribe(`/chat/historial/${this.idCliente}`, evento => {
+          this.mensajes.set(JSON.parse(evento.body) as Mensaje[]);
+      })
+      this.cliente.publish({
+        destination: '/app/historial', 
+        body: this.idCliente
+      });
+
+      // Mensaje de unión al chat
       this.mensaje.tipo = 'NEW_USER';
       this.cliente.publish({
         destination: '/app/mensajes',
@@ -64,6 +82,7 @@ export class Chat {
       });
     }
 
+    // Desconexión
     this.cliente.onDisconnect = (frame) => {
       this.conectado.set(false);
       console.log(`Desconectado: ${!this.cliente.connected} : ${frame}`);
@@ -71,8 +90,6 @@ export class Chat {
       this.mensaje = new Mensaje();
       this.mensajes.set([]);
     }
-
-    // this.conectarChat();
   }
 
   conectarChat(): void {

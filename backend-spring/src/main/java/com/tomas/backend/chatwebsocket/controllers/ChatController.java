@@ -1,10 +1,12 @@
 package com.tomas.backend.chatwebsocket.controllers;
 
 import com.tomas.backend.chatwebsocket.models.Mensaje;
+import com.tomas.backend.chatwebsocket.services.IMensajeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
@@ -13,6 +15,13 @@ import java.util.Date;
 public class ChatController {
 
     private Logger log = LoggerFactory.getLogger(ChatController.class);
+    private final IMensajeService mensajeService;
+    private final SimpMessagingTemplate webSocket;
+
+    public ChatController(IMensajeService mensajeService, SimpMessagingTemplate webSocket) {
+        this.mensajeService = mensajeService;
+        this.webSocket = webSocket;
+    }
 
     // El frontend referenciará este "canal" usando /app/mensajes
     // Es el paralelismo de los REST Mapping's pero en websockets
@@ -28,6 +37,10 @@ public class ChatController {
         {
             mensaje.setMensaje("Nuevo usuario -> @" + mensaje.getUsuario());
         }
+        else
+        {
+            mensajeService.guardar(mensaje);
+        }
 
         return mensaje;
     }
@@ -37,6 +50,14 @@ public class ChatController {
     public String estaEscribiendo(String username) {
         log.info("Señal de usuario escribiendo -> @" + username);
         return username;
+    }
+
+    @MessageMapping("/historial")
+    public void listarMensajes(String idCliente) {
+        log.info("Solicitud de historial -> @" + idCliente);
+
+        // Recibo el body, lo convierto y reenvío por /chat/historial/idCliente
+        webSocket.convertAndSend("/chat/historial/".concat(idCliente), mensajeService.listar());
     }
 
 }
