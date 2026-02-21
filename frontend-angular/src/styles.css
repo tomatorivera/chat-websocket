@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --palette-green-primary: rgb(22, 219, 101);
+  --palette-green-secondary: rgb(5, 140, 66);
+  --palette-light-text: #e0e0e0;
+}
+
+.font-funnel-display {
+  font-family: "Funnel Display", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}

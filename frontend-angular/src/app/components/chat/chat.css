@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap');
+
+.chat-background {
+  width: 100vw;
+  height: 100vh;
+
+  background-image: radial-gradient(circle at 0% 5%,
+      rgb(7, 49, 28) 0%,
+      rgb(0, 0, 0) 50%);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.chat-header > h1 {
+  font-weight: 600;
+  color: var(--palette-green-primary);
+}
+
+.chat-login {
+  padding: 0 .5rem;
+}
+.chat-login-input {
+  background: rgba(255, 255, 255, 0.03);
+  
+  backdrop-filter: blur(12px);
+  /* Soporte para Safari */
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  padding: .55rem;
+  color: var(--palette-light-text);
+
+  width: auto;
+  min-width: 300px;
+  transition: border .15s ease-in-out;
+}
+.chat-login-input:focus {
+  outline: none;
+}
+.chat-login-input:hover {
+  transition: border .15s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.chat-login-btn {
+  background-color: var(--palette-green-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 0 .7em;
+  transition: background-color .15s ease-in-out;
+}
+.chat-login-btn:hover {
+  transition: background-color .15s ease-in-out;
+  background-color: var(--palette-green-secondary);
+}
+
+@media screen and (max-width: 576px) {
+  .chat-login-input {
+    width: 100%;
+    min-width: auto;
+  }
+}

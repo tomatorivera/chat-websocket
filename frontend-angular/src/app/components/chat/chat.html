@@ -1,82 +1,87 @@
 <!-- Todo: refactorizar estilos -->
-
-<header class="bg-text-secondary pt-3 px-3">
-    <h1>Bienvenido al chat</h1>
-</header>
-
-<main>
-    @if (!conectado()) 
+<div class="chat-background d-flex flex-column justify-content-center align-items-center">
+    @if (!conectado())
     {
+    <header class="chat-header font-funnel-display py-1">
+        <h1 class="text-center">¡Bienvenido al chat!</h1>
+    </header>
+    <section class="chat-login font-funnel-display w-100 d-flex justify-content-center align-items-stretch gap-2">
+        <input type="text"
+               name="usuario" 
+               id="usuario" 
+               placeholder="Ingresa tu nombre de usuario..."
+               aria-describedby="btn-conectar" 
+               class="chat-login-input" 
+               [(ngModel)]="mensaje.usuario">
+        <button type="button" 
+                id="btn-conectar" 
+                class="chat-login-btn"
+                (click)="conectarChat()">
+            Ingresar
+        </button>
+    </section>
+    }
+
+    <!--
+    <main class="chat-background">
+        @if (!conectado())
+        {
         <section class="bg-light p-3">
             <div class="input-group">
-                <input type="text" 
-                        name="usuario" 
-                        id="usuario" 
-                        [(ngModel)]="mensaje.usuario"
-                        class="form-control" 
-                        placeholder="Ingresa tu nombre de usuario..." 
-                        aria-describedby="btn-conectar">
-                        
-                <button class="btn btn-success" 
-                        type="button" 
-                        id="btn-conectar"
-                        [disabled]="!mensaje.usuario"
-                        (click)="conectarChat()">
+                <input type="text" name="usuario" id="usuario" [(ngModel)]="mensaje.usuario" class="form-control"
+                    placeholder="Ingresa tu nombre de usuario..." aria-describedby="btn-conectar">
+    
+                <button class="btn btn-success" type="button" id="btn-conectar" [disabled]="!mensaje.usuario"
+                    (click)="conectarChat()">
                     Conectarme
                 </button>
             </div>
         </section>
-    }   
-    @else
-    {
+        }
+        @else
+        {
         <section class="bg-light p-2">
-            <button class="btn btn-warning" type="button" (click)="desconectarChat()">Desconectar</button>  
-        </section> 
-
+            <button class="btn btn-warning" type="button" (click)="desconectarChat()">Desconectar</button>
+        </section>
+    
         <section style="overflow-y: scroll; width: 100vw; height: 50vh; margin: 0 auto;">
             <ul class="list-group">
-                @for (mensaje of mensajes(); track $index) 
+                @for (mensaje of mensajes(); track $index)
                 {
-
-                    @if (mensaje.tipo == 'MESSAGE')
-                    {
-                        <li class="list-group-item">
-                            {{mensaje.fecha | date: 'short'}} | <strong>@{{mensaje.usuario}}:</strong> {{mensaje.mensaje}}
-                        </li>
-                    }
-                    @else
-                    {
-                        <li class="list-group-item bg-info">
-                            {{mensaje.fecha | date: 'short'}} | {{mensaje.mensaje}}
-                        </li>
-                    }
+    
+                @if (mensaje.tipo == 'MESSAGE')
+                {
+                <li class="list-group-item">
+                    {{mensaje.fecha | date: 'short'}} | <strong>@{{mensaje.usuario}}:</strong> {{mensaje.mensaje}}
+                </li>
                 }
-                @empty 
+                @else
                 {
-                    <li class="list-group-item text-secondary">Sé el primero en enviar un mensaje!</li>
+                <li class="list-group-item bg-info">
+                    {{mensaje.fecha | date: 'short'}} | {{mensaje.mensaje}}
+                </li>
+                }
+                }
+                @empty
+                {
+                <li class="list-group-item text-secondary">Sé el primero en enviar un mensaje!</li>
                 }
             </ul>
         </section>
-
+    
         <section class="bg-light p-3">
             <form (ngSubmit)="alEnviarMensaje()">
                 <div class="input-group">
-                    <button class="btn btn-outline-primary" 
-                            type="submit" 
-                            id="btn-enviar">
+                    <button class="btn btn-outline-primary" type="submit" id="btn-enviar">
                         Enviar mensaje
                     </button>
-                    <input type="text" 
-                           name="texto" 
-                           id="texto" 
-                           [(ngModel)]="mensaje.mensaje" 
-                           (keyup)="alEscribir()"
-                           class="form-control" 
-                           placeholder="Escribe tu mensaje..." 
-                           aria-describedby="btn-enviar">
+                    <input type="text" name="texto" id="texto" [(ngModel)]="mensaje.mensaje" (keyup)="alEscribir()"
+                        class="form-control" placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
                 </div>
             </form>
             <p>{{ escribiendo() }}</p>
         </section>
-    }
-</main>
+        }
+    </main>
+    -->
+</div>
