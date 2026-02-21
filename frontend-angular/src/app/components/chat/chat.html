@@ -1,7 +1,7 @@
 <!-- Todo: refactorizar estilos -->
 <div class="chat-background d-flex flex-column justify-content-center align-items-center">
-    @if (!conectado())
-    {
+@if (!conectado())
+{
     <header class="chat-header font-funnel-display py-1">
         <h1 class="text-center">¡Bienvenido al chat!</h1>
     </header>
@@ -11,16 +11,79 @@
                id="usuario" 
                placeholder="Ingresa tu nombre de usuario..."
                aria-describedby="btn-conectar" 
-               class="chat-login-input" 
+               class="chat-input container-glass" 
                [(ngModel)]="mensaje.usuario">
         <button type="button" 
                 id="btn-conectar" 
-                class="chat-login-btn"
-                (click)="conectarChat()">
-            Ingresar
-        </button>
+                class="chat-btn"
+                (click)="conectarChat()">Ingresar</button>
     </section>
-    }
+}
+@else 
+{
+    <section class="chat-container d-flex flex-column justify-content-center align-items-center p-2 gap-3 font-funnel-display">
+        <main class="chat-text container-glass card p-0">
+            <section class="chat-text-header card-header py-3">
+                <h2>Chat grupal #1</h2>
+                <button type="button"
+                        class="close-chat-btn" 
+                        aria-label="Cerrar chat"
+                        (click)="desconectarChat()">
+                    <span></span>
+                    <span></span>
+                </button>
+            </section>
+            <section class="chat-text-messages card-body d-flex flex-column gap-3">
+                <article class="message received">
+                    <div class="bubble">
+                        <span class="user">Lucho</span>
+                        Hola Tomas, ¿cómo va ese proyecto en Angular?
+                        <span class="time">16:45</span>
+                    </div>
+                </article>
+                <article class="message sent">
+                    <div class="bubble">
+                        <span class="user">TomatoRivera</span>
+                        ¡Va muy bien! Estoy aplicando un estilo glass y el verde que definimos.
+                        <span class="time">16:46</span>
+                    </div>
+                </article>
+                <div class="system-notification container-glass">
+                    <p class="mb-0"><strong>Eduardo</strong> se ha unido al chat</p>
+                </div>
+                <article class="message received">
+                    <div class="bubble">
+                        <span class="user">Lucho</span>
+                        Que onda Eduuuuuuuuuuuuuu
+                        <span class="time">16:45</span>
+                    </div>
+                </article>
+            </section>
+        </main>
+        <section class="chat-msg-input w-100">
+            <form (ngSubmit)="alEnviarMensaje()"
+                  class="w-100 container-fluid">
+                <div class="row">
+                    <div class="col-10 p-0 pe-1">
+                        <input type="text" 
+                               name="texto"
+                               id="texto" 
+                               [(ngModel)]="mensaje.mensaje"
+                               (keyup)="alEscribir()"
+                               class="container-glass w-100 chat-input"
+                               placeholder="Escribe tu mensaje..."
+                               aria-describedby="btn-enviar">
+                    </div>
+                    <div class="col-2 p-0 ps-1">
+                        <button class="w-100 h-100 chat-btn"
+                                type="submit" 
+                                id="btn-enviar">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </section>
+}
 
     <!--
     <main class="chat-background">
