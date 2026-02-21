@@ -34,30 +34,29 @@
                 </button>
             </section>
             <section class="chat-text-messages card-body d-flex flex-column gap-3">
-                <article class="message received">
+            @for (mensaje of mensajes(); track $index)
+            {
+                @if (mensaje.tipo == 'MESSAGE')
+                {
+                <article [class]="this.nombreClienteActual === mensaje.usuario ? 'message sent' : 'message received'">
                     <div class="bubble">
-                        <span class="user">Lucho</span>
-                        Hola Tomas, ¿cómo va ese proyecto en Angular?
-                        <span class="time">16:45</span>
+                        <span class="user">{{mensaje.usuario}}</span>
+                        {{mensaje.mensaje}}
+                        <span class="time">{{mensaje.fecha | date: 'short'}}</span>
                     </div>
                 </article>
-                <article class="message sent">
-                    <div class="bubble">
-                        <span class="user">TomatoRivera</span>
-                        ¡Va muy bien! Estoy aplicando un estilo glass y el verde que definimos.
-                        <span class="time">16:46</span>
+                }
+                @else
+                {
+                    <div class="system-notification container-glass">
+                        <p class="mb-0"><strong>{{mensaje.mensaje}}</strong> se ha unido al chat</p>
                     </div>
-                </article>
-                <div class="system-notification container-glass">
-                    <p class="mb-0"><strong>Eduardo</strong> se ha unido al chat</p>
-                </div>
-                <article class="message received">
-                    <div class="bubble">
-                        <span class="user">Lucho</span>
-                        Que onda Eduuuuuuuuuuuuuu
-                        <span class="time">16:45</span>
-                    </div>
-                </article>
+                }
+            }
+            @empty 
+            {
+                <p class="system-notification container-glass">Sé el primero en romper el hielo...</p>
+            }
             </section>
         </main>
         <section class="chat-msg-input w-100">
@@ -109,26 +108,7 @@
     
         <section style="overflow-y: scroll; width: 100vw; height: 50vh; margin: 0 auto;">
             <ul class="list-group">
-                @for (mensaje of mensajes(); track $index)
-                {
-    
-                @if (mensaje.tipo == 'MESSAGE')
-                {
-                <li class="list-group-item">
-                    {{mensaje.fecha | date: 'short'}} | <strong>@{{mensaje.usuario}}:</strong> {{mensaje.mensaje}}
-                </li>
-                }
-                @else
-                {
-                <li class="list-group-item bg-info">
-                    {{mensaje.fecha | date: 'short'}} | {{mensaje.mensaje}}
-                </li>
-                }
-                }
-                @empty
-                {
-                <li class="list-group-item text-secondary">Sé el primero en enviar un mensaje!</li>
-                }
+                
             </ul>
         </section>
     

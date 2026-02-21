@@ -36,7 +36,7 @@ public class ChatController {
 
         if (mensaje.getTipo().equals("NEW_USER"))
         {
-            mensaje.setMensaje("Nuevo usuario -> @" + mensaje.getUsuario());
+            mensaje.setMensaje(mensaje.getUsuario());
         }
         else
         {

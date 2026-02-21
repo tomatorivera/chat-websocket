@@ -17,11 +17,12 @@ export class Chat {
   conectado = signal<boolean>(false);
   escribiendo = signal<string>('');
   
-  idCliente!: string;
+  idClienteActual!: string;
+  nombreClienteActual!:string;
 
   constructor() {
     // To-Do: reimplementación con MongoDb
-    this.idCliente = 'id-' + new Date().getTime();
+    this.idClienteActual = 'id-' + new Date().getTime();
   }
 
   // La lista de mensajes almacena todos los mensajes del chat
@@ -66,16 +67,17 @@ export class Chat {
       })
 
       // Historial de mensajes
-      this.cliente.subscribe(`/chat/historial/${this.idCliente}`, evento => {
+      this.cliente.subscribe(`/chat/historial/${this.idClienteActual}`, evento => {
           this.mensajes.set(JSON.parse(evento.body) as Mensaje[]);
       })
       this.cliente.publish({
         destination: '/app/historial', 
-        body: this.idCliente
+        body: this.idClienteActual
       });
 
       // Mensaje de unión al chat
       this.mensaje.tipo = 'NEW_USER';
+      this.nombreClienteActual = this.mensaje.usuario;
       this.cliente.publish({
         destination: '/app/mensajes',
         body: JSON.stringify(this.mensaje)
