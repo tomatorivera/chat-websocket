@@ -207,6 +207,7 @@
   color: var(--palette-green-primary);
   margin-bottom: 4px;
 }
+
 .chat-text-messages .system-notification {
   text-align: center;
   padding: 8px 16px;
@@ -220,6 +221,16 @@
 .chat-text-messages .system-notification strong {
   color: var(--palette-green-primary);
   font-weight: 600;
+}
+
+.chat-text-writing {
+  position: absolute;
+  bottom: -8px;
+  left: 8px;
+  color: var(--palette-light-text);
+}
+.chat-text-writing strong {
+  color: var(--palette-green-primary);
 }
 
 @media screen and (max-width: 576px) {

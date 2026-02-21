@@ -61,7 +61,7 @@ export class Chat {
       this.cliente.subscribe('/chat/escribiendo', evento => {
         if (evento.body != this.mensaje.usuario)
         {
-          this.escribiendo.set(evento.body + ' está escribiendo...');
+          this.escribiendo.set(evento.body);
           setTimeout(() => this.escribiendo.set(''), 3000);
         }
       })

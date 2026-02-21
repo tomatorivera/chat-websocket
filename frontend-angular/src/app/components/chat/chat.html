@@ -58,12 +58,17 @@
                 <p class="system-notification container-glass">Sé el primero en romper el hielo...</p>
             }
             </section>
+
+            @if (escribiendo().trim() != '')
+            {
+                <p class="chat-text-writing"><strong>{{ escribiendo() }}</strong> está escribiendo...</p>
+            }
         </main>
         <section class="chat-msg-input w-100">
             <form (ngSubmit)="alEnviarMensaje()"
                   class="w-100 container-fluid">
                 <div class="row">
-                    <div class="col-10 p-0 pe-1">
+                    <div class="col-9 p-0 pe-1">
                         <input type="text" 
                                name="texto"
                                id="texto" 
@@ -73,7 +78,7 @@
                                placeholder="Escribe tu mensaje..."
                                aria-describedby="btn-enviar">
                     </div>
-                    <div class="col-2 p-0 ps-1">
+                    <div class="col-3 p-0 ps-1">
                         <button class="w-100 h-100 chat-btn"
                                 type="submit" 
                                 id="btn-enviar">Enviar</button>
