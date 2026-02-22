@@ -1,61 +1,21 @@
 import { Component, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import * as Stomp from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
 import { Mensaje } from '../../models/mensaje';
 import { ChatService } from '../../services/chat.service';
+import { ChatLogin } from '../chat-login/chat-login';
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, DatePipe ],
+  imports: [FormsModule, DatePipe, ChatLogin],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })
 export class Chat {
 
-  // cliente!: Stomp.Client;
-  // conectado = signal<boolean>(false);
-  // escribiendo = signal<string>('');
-  
-  // idClienteActual!: string;
-  // nombreClienteActual!:string;
-
   errorLogin = signal<string | null>(null)
 
-  constructor(public chatService: ChatService) {
-    // this.idClienteActual = 'id-' + new Date().getTime();
-  }
-
-  // La lista de mensajes almacena todos los mensajes del chat
-  // El mensaje (en singular) lo mapeo al formulario
-  // mensajes = signal<Mensaje[]>([]);
-  // mensaje: Mensaje = new Mensaje();
-
-  // ngOnInit(): void {
-  //   this.chatService.conectar();
-
-  //   // Configuro el cliente bajo el protocolo STOMP
-  //   this.cliente = new Stomp.Client({
-  //     // No lo utilizo, porque me comunico al broker mediante HTTP usando SockJS
-  //     brokerURL: undefined, 
-  //     // Endpoint configurado en el backend como base para las conexiones
-  //     webSocketFactory: () => new SockJS('http://localhost:8080/chat-websocket'),
-  //     // Debugger simple
-  //     debug: str => console.log(str),
-  //     // Tiempo en MS de reconexión si se pierde abruptamente
-  //     reconnectDelay: 5000
-  //   });
-
-  //   // Desconexión
-  //   this.cliente.onDisconnect = (frame) => {
-  //     this.conectado.set(false);
-  //     console.log(`Desconectado: ${!this.cliente.connected} : ${frame}`);
-
-  //     this.mensaje = new Mensaje();
-  //     this.mensajes.set([]);
-  //   }
-  // }
+  constructor(public chatService: ChatService) { }
 
   conectarChat(): void {
     this.errorLogin.set(null);

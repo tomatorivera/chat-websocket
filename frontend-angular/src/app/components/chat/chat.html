@@ -1,24 +1,11 @@
 <div class="chat-background d-flex flex-column justify-content-center align-items-center">
 @if (!estaConectado())
 {
-    <header class="chat-header font-funnel-display py-1 text-center">
-        <h1 class="mb-0">¡Bienvenido al chat!</h1>
-        <p>{{ errorLogin() }}</p>
-    </header>
-    <section class="chat-login font-funnel-display w-100 d-flex justify-content-center align-items-stretch gap-2">
-        <input type="text"
-               name="usuario" 
-               id="usuario" 
-               placeholder="Ingresa tu nombre de usuario..."
-               aria-describedby="btn-conectar" 
-               class="chat-input container-glass" 
-               [(ngModel)]="getMensajeActual().usuario"
-               required>
-        <button type="button" 
-                id="btn-conectar" 
-                class="chat-btn"
-                (click)="conectarChat()">Ingresar</button>
-    </section>
+    <app-chat-login 
+        [mensaje]="chatService.mensaje"
+        [error]="errorLogin()"
+        (conectar)="conectarChat()">
+    </app-chat-login>
 }
 @else 
 {

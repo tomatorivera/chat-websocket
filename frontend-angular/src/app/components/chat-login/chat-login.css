@@ -1,0 +1,12 @@
+.chat-header > h1 {
+  font-weight: 600;
+  color: var(--palette-green-primary);
+}
+
+.chat-header > p {
+  color: rgb(219, 28, 22);
+}
+
+.chat-login {
+  padding: 0 .5rem;
+}

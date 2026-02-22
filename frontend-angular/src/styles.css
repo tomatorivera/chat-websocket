@@ -24,3 +24,36 @@
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   padding: .55rem;
 }
+
+.chat-btn {
+  background-color: var(--palette-green-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 0 .7em;
+  transition: background-color .15s ease-in-out;
+}
+.chat-btn:hover {
+  transition: background-color .15s ease-in-out;
+  background-color: var(--palette-green-secondary);
+}
+
+.chat-input {
+  color: var(--palette-light-text);
+  width: auto;
+  min-width: 300px;
+  transition: border .15s ease-in-out;
+}
+.chat-input:focus {
+  outline: none;
+}
+.chat-input:hover {
+  transition: border .15s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 576px) {
+  .chat-input {
+    width: 100%;
+    min-width: auto;
+  }
+}

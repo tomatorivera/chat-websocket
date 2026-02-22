@@ -1,0 +1,18 @@
+<header class="chat-header font-funnel-display py-1 text-center">
+    <h1 class="mb-0">¡Bienvenido al chat!</h1>
+    <p>{{ error }}</p>
+</header>
+<section class="chat-login font-funnel-display w-100 d-flex justify-content-center align-items-stretch gap-2">
+    <input type="text"
+            name="usuario" 
+            id="usuario" 
+            placeholder="Ingresa tu nombre de usuario..."
+            aria-describedby="btn-conectar" 
+            class="chat-input container-glass" 
+            [(ngModel)]="mensaje.usuario"
+            required>
+    <button type="button" 
+            id="btn-conectar" 
+            class="chat-btn"
+            (click)="conectar.emit()">Ingresar</button>
+</section>

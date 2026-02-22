@@ -13,44 +13,6 @@
   background-attachment: fixed;
 }
 
-.chat-header > h1 {
-  font-weight: 600;
-  color: var(--palette-green-primary);
-}
-.chat-header > p {
-  color: rgb(219, 28, 22);
-}
-
-.chat-login {
-  padding: 0 .5rem;
-} 
-
-.chat-input {
-  color: var(--palette-light-text);
-  width: auto;
-  min-width: 300px;
-  transition: border .15s ease-in-out;
-}
-.chat-input:focus {
-  outline: none;
-}
-.chat-input:hover {
-  transition: border .15s ease-in-out;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.chat-btn {
-  background-color: var(--palette-green-primary);
-  border: none;
-  border-radius: 12px;
-  padding: 0 .7em;
-  transition: background-color .15s ease-in-out;
-}
-.chat-btn:hover {
-  transition: background-color .15s ease-in-out;
-  background-color: var(--palette-green-secondary);
-}
-
 .chat-container {
   width: 70vw;
   height: 90vh;
