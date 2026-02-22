@@ -2,14 +2,24 @@
 @if (!estaConectado())
 {
     <app-chat-login 
-        [mensaje]="chatService.mensaje"
+        [mensaje]="getMensajeActual()"
         [error]="errorLogin()"
-        (conectar)="conectarChat()">
+        (conectar)="conectarChat()"
+        class="w-100">
     </app-chat-login>
 }
 @else 
 {
-    <section class="chat-container d-flex flex-column justify-content-center align-items-center p-2 gap-3 font-funnel-display">
+    <app-chat-window
+        [mensajes]="getMensajes()"
+        [mensajeActual]="getMensajeActual()"
+        [nombreUsuarioActual]="getNombreUsuarioActual()"
+        [usuarioEscribiendo]="getUsuarioEscribiendo()"
+        (enviarMensaje)="alEnviarMensaje()"
+        (escribiendo)="alEscribir()"
+        (desconectar)="desconectarChat()">
+    </app-chat-window>
+    <!-- <section class="chat-container d-flex flex-column justify-content-center align-items-center p-2 gap-3 font-funnel-display">
         <main class="chat-text container-glass card p-0">
             <section class="chat-text-header card-header py-3">
                 <h2>Chat grupal #1</h2>
@@ -74,6 +84,6 @@
                 </div>
             </form>
         </section>
-    </section>
+    </section> -->
 }
 </div>

@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { Mensaje } from '../../models/mensaje';
 import { ChatService } from '../../services/chat.service';
 import { ChatLogin } from '../chat-login/chat-login';
+import { ChatWindow } from "../chat-window/chat-window";
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, DatePipe, ChatLogin],
+  imports: [FormsModule, DatePipe, ChatLogin, ChatWindow],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })
@@ -57,7 +58,7 @@ export class Chat {
     return this.chatService.mensajes();
   }
 
-  getNombreClienteActual(): string {
+  getNombreUsuarioActual(): string {
     return this.chatService.nombreClienteActual;
   }
 }

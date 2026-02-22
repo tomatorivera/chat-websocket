@@ -10,6 +10,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ChatController {
@@ -56,9 +57,13 @@ public class ChatController {
     @MessageMapping("/historial")
     public void listarMensajes(String idCliente) {
         log.info("Solicitud de historial -> @" + idCliente);
+        List<Mensaje> mensajes = mensajeService.listar();
+        mensajes.forEach(msg -> {
+            log.info("Mensaje: " + msg);
+        });
 
         // Recibo el body, lo convierto y reenvío por /chat/historial/idCliente
-        webSocket.convertAndSend("/chat/historial/".concat(idCliente), mensajeService.listar());
+        webSocket.convertAndSend("/chat/historial/".concat(idCliente), mensajes);
     }
 
 }

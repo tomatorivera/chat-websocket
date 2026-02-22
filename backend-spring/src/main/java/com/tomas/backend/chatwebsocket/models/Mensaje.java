@@ -52,4 +52,15 @@ public class Mensaje {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Mensaje{" +
+                "id='" + id + '\'' +
+                ", mensaje='" + mensaje + '\'' +
+                ", fecha=" + fecha +
+                ", usuario='" + usuario + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
+    }
 }
