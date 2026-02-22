@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Mensaje } from '../../models/mensaje';
 import { ChatService } from '../../services/chat.service';
@@ -8,7 +7,7 @@ import { ChatWindow } from "../chat-window/chat-window";
 
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, DatePipe, ChatLogin, ChatWindow],
+  imports: [FormsModule, ChatLogin, ChatWindow],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })

@@ -11,7 +11,14 @@
         <span></span>
       </button>
     </section>
-    <section class="chat-text-messages card-body d-flex flex-column gap-3">
+
+    <app-chat-messages
+      [mensajes]="mensajes"
+      [nombreUsuarioActual]="nombreUsuarioActual"
+      class="chat-messages-container overflow-auto">
+    </app-chat-messages>
+
+    <!-- <section class="chat-text-messages card-body d-flex flex-column gap-3">
       @for (mensaje of mensajes; track $index)
       {
         @if (mensaje?.tipo == 'MESSAGE')
@@ -35,7 +42,7 @@
       {
       <p class="system-notification container-glass">Parece que nadie ha hablado aún...</p>
       }
-    </section>
+    </section> -->
 
     @if (usuarioEscribiendo.trim() != '')
     {

@@ -1,0 +1,25 @@
+<section class="chat-text-messages card-body d-flex flex-column gap-3">
+  @for (mensaje of mensajes; track $index)
+  {
+  @if (mensaje?.tipo == 'MESSAGE')
+  {
+  <article [class]="nombreUsuarioActual === mensaje.usuario ? 'message sent' : 'message received'">
+    <div class="bubble">
+      <span class="user">{{mensaje?.usuario}}</span>
+      {{mensaje?.mensaje}}
+      <span class="time">{{mensaje?.fecha | date: 'short'}}</span>
+    </div>
+  </article>
+  }
+  @else
+  {
+  <div class="system-notification container-glass">
+    <p class="mb-0"><strong>{{mensaje?.mensaje}}</strong> se ha unido al chat</p>
+  </div>
+  }
+  }
+  @empty
+  {
+  <p class="system-notification container-glass">Parece que nadie ha hablado aún...</p>
+  }
+</section>
