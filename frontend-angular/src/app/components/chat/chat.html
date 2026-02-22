@@ -1,9 +1,9 @@
-<!-- Todo: refactorizar estilos -->
 <div class="chat-background d-flex flex-column justify-content-center align-items-center">
-@if (!conectado())
+@if (!estaConectado())
 {
-    <header class="chat-header font-funnel-display py-1">
-        <h1 class="text-center">¡Bienvenido al chat!</h1>
+    <header class="chat-header font-funnel-display py-1 text-center">
+        <h1 class="mb-0">¡Bienvenido al chat!</h1>
+        <p>{{ errorLogin() }}</p>
     </header>
     <section class="chat-login font-funnel-display w-100 d-flex justify-content-center align-items-stretch gap-2">
         <input type="text"
@@ -12,7 +12,8 @@
                placeholder="Ingresa tu nombre de usuario..."
                aria-describedby="btn-conectar" 
                class="chat-input container-glass" 
-               [(ngModel)]="mensaje.usuario">
+               [(ngModel)]="getMensajeActual().usuario"
+               required>
         <button type="button" 
                 id="btn-conectar" 
                 class="chat-btn"
@@ -34,11 +35,11 @@
                 </button>
             </section>
             <section class="chat-text-messages card-body d-flex flex-column gap-3">
-            @for (mensaje of mensajes(); track $index)
+            @for (mensaje of getMensajes(); track $index)
             {
                 @if (mensaje.tipo == 'MESSAGE')
                 {
-                <article [class]="this.nombreClienteActual === mensaje.usuario ? 'message sent' : 'message received'">
+                <article [class]="getNombreClienteActual() === mensaje.usuario ? 'message sent' : 'message received'">
                     <div class="bubble">
                         <span class="user">{{mensaje.usuario}}</span>
                         {{mensaje.mensaje}}
@@ -55,13 +56,13 @@
             }
             @empty 
             {
-                <p class="system-notification container-glass">Sé el primero en romper el hielo...</p>
+                <p class="system-notification container-glass">Parece que nadie ha hablado aún...</p>
             }
             </section>
 
-            @if (escribiendo().trim() != '')
+            @if (getUsuarioEscribiendo().trim() != '')
             {
-                <p class="chat-text-writing"><strong>{{ escribiendo() }}</strong> está escribiendo...</p>
+                <p class="chat-text-writing"><strong>{{ getUsuarioEscribiendo() }}</strong> está escribiendo...</p>
             }
         </main>
         <section class="chat-msg-input w-100">
@@ -72,7 +73,7 @@
                         <input type="text" 
                                name="texto"
                                id="texto" 
-                               [(ngModel)]="mensaje.mensaje"
+                               [(ngModel)]="getMensajeActual().mensaje"
                                (keyup)="alEscribir()"
                                class="container-glass w-100 chat-input"
                                placeholder="Escribe tu mensaje..."
@@ -88,48 +89,4 @@
         </section>
     </section>
 }
-
-    <!--
-    <main class="chat-background">
-        @if (!conectado())
-        {
-        <section class="bg-light p-3">
-            <div class="input-group">
-                <input type="text" name="usuario" id="usuario" [(ngModel)]="mensaje.usuario" class="form-control"
-                    placeholder="Ingresa tu nombre de usuario..." aria-describedby="btn-conectar">
-    
-                <button class="btn btn-success" type="button" id="btn-conectar" [disabled]="!mensaje.usuario"
-                    (click)="conectarChat()">
-                    Conectarme
-                </button>
-            </div>
-        </section>
-        }
-        @else
-        {
-        <section class="bg-light p-2">
-            <button class="btn btn-warning" type="button" (click)="desconectarChat()">Desconectar</button>
-        </section>
-    
-        <section style="overflow-y: scroll; width: 100vw; height: 50vh; margin: 0 auto;">
-            <ul class="list-group">
-                
-            </ul>
-        </section>
-    
-        <section class="bg-light p-3">
-            <form (ngSubmit)="alEnviarMensaje()">
-                <div class="input-group">
-                    <button class="btn btn-outline-primary" type="submit" id="btn-enviar">
-                        Enviar mensaje
-                    </button>
-                    <input type="text" name="texto" id="texto" [(ngModel)]="mensaje.mensaje" (keyup)="alEscribir()"
-                        class="form-control" placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
-                </div>
-            </form>
-            <p>{{ escribiendo() }}</p>
-        </section>
-        }
-    </main>
-    -->
 </div>

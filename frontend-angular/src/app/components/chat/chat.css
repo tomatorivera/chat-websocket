@@ -17,6 +17,9 @@
   font-weight: 600;
   color: var(--palette-green-primary);
 }
+.chat-header > p {
+  color: rgb(219, 28, 22);
+}
 
 .chat-login {
   padding: 0 .5rem;
@@ -75,7 +78,7 @@
 .chat-text-header .close-chat-btn {
   position: absolute;
   right: 20px;
-  top: 16px;
+  top: 20px;
   width: 32px;
   height: 32px;
   background: rgba(255, 255, 255, 0.05);
@@ -242,5 +245,9 @@
   .chat-container {
     width: 100vw;
     height: 100vh;
+  }
+
+  .chat-text-header .close-chat-btn {
+    top: 16px;
   }
 }
