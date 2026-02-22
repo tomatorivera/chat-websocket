@@ -1,0 +1,11 @@
+<form (ngSubmit)="enviarMensaje.emit()" class="w-100 container-fluid">
+  <div class="row">
+    <div class="col-9 p-0 pe-1">
+      <input type="text" name="texto" id="texto" [(ngModel)]="mensajeActual.mensaje" (keyup)="escribiendo.emit()"
+        class="container-glass w-100 chat-input" placeholder="Escribe tu mensaje..." aria-describedby="btn-enviar">
+    </div>
+    <div class="col-3 p-0 ps-1">
+      <button class="w-100 h-100 chat-btn" type="submit" id="btn-enviar">Enviar</button>
+    </div>
+  </div>
+</form>
